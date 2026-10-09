@@ -1,16 +1,878 @@
-<!doctype html>
-<html lang="<!-- figma:lang -->">
-  <head>
-    <!-- figma:head-start -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><!-- figma:title --></title>
-    <!-- figma:head-end -->
-  </head>
-  <body>
-    <!-- figma:body-start -->
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- figma:body-end -->
-  </body>
+<!DOCTYPE html>
+<html lang="mn" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMM Mongolia - Сошиал Медиа Хөгжүүлэлтийн Платформ</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        fb: '#1877F2',
+                        ig: '#E4405F',
+                        yt: '#FF0000',
+                        tt: '#00F2FE',
+                        threads: '#A0A0A0',
+                        khan: '#006633'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+        }
+
+        .glass-card {
+            background: rgba(18, 18, 22, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-hover:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-accent {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+
+        /* Input highlight styling */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl gradient-accent flex items-center justify-center font-black text-xl text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                    S
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-xl tracking-tight text-white uppercase flex items-center gap-1.5">
+                        SOCIO<span class="text-indigo-400">BOOST</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest text-zinc-400 uppercase font-semibold">Mongolia SMM Market</span>
+                </div>
+            </a>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3">
+                <button onclick="openTrackModal()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition flex items-center gap-2">
+                    <i data-lucide="search" class="w-4 h-4 text-indigo-400"></i>
+                    <span>Захиалга шалгах</span>
+                </button>
+                <a href="#order-section" class="hidden sm:flex px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-black hover:bg-zinc-200 transition items-center gap-2 shadow-lg">
+                    <span>Захиалах</span>
+                    <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden border-b border-zinc-900">
+        <!-- Ambient Glow Background -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/4 right-10 w-[300px] h-[300px] bg-pink-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-semibold mb-6">
+                <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                Монголын #1 Сошиал Идэвхжүүлэлтийн Платформ
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight uppercase">
+                Хамгийн хямд, хурдан <br class="hidden sm:inline"/>
+                <span class="gradient-text">1 Дагагч = 10 ₮</span>
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 mb-10 leading-relaxed">
+                Facebook, Instagram, YouTube, TikTok болон Threads хуудсынхаа дагагч, лайк, шэйрийн тоог шууд нэмэгдүүлж сошиал орчин дахь нөлөөллөө тэлээрэй.
+            </p>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-4 border-t border-zinc-800/60">
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-2xl sm:text-3xl font-black text-white">100,000+</div>
+                    <div class="text-xs text-zinc-400 font-medium mt-1">Амжилттай захиалга</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-2xl sm:text-3xl font-black text-indigo-400">10 ₮</div>
+                    <div class="text-xs text-zinc-400 font-medium mt-1">Нэгж дагагчийн үнэ</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-2xl sm:text-3xl font-black text-emerald-400">24 / 7</div>
+                    <div class="text-xs text-zinc-400 font-medium mt-1">Автомат систем</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-2xl sm:text-3xl font-black text-amber-400">100%</div>
+                    <div class="text-xs text-zinc-400 font-medium mt-1">Надвартай үйлчилгээ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Order Calculator & Selection Area -->
+    <main id="order-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">Захиалга өгөх</h2>
+            <p class="text-zinc-400 text-sm mt-2">Платформ болон үйлчилгээний төрлөө сонгон үнийн тооцооллоо харна уу</p>
+        </div>
+
+        <!-- Order Workflow Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Side: Selection Tabs & Inputs (8 Cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <!-- Step 1: Select Platform -->
+                <div class="glass-card rounded-2xl p-6">
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px]">1</span>
+                        Платформ сонгох
+                    </label>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="platform-buttons">
+                        <!-- Facebook Button -->
+                        <button type="button" onclick="selectPlatform('facebook')" data-platform="facebook" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
+                            <i data-lucide="facebook" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-blue-500 transition-colors"></i>
+                            <span class="text-xs font-semibold">Facebook</span>
+                        </button>
+
+                        <!-- Instagram Button -->
+                        <button type="button" onclick="selectPlatform('instagram')" data-platform="instagram" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
+                            <i data-lucide="instagram" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-pink-500 transition-colors"></i>
+                            <span class="text-xs font-semibold">Instagram</span>
+                        </button>
+
+                        <!-- YouTube Button -->
+                        <button type="button" onclick="selectPlatform('youtube')" data-platform="youtube" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
+                            <i data-lucide="youtube" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-red-500 transition-colors"></i>
+                            <span class="text-xs font-semibold">YouTube</span>
+                        </button>
+
+                        <!-- TikTok Button -->
+                        <button type="button" onclick="selectPlatform('tiktok')" data-platform="tiktok" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
+                            <i data-lucide="video" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-cyan-400 transition-colors"></i>
+                            <span class="text-xs font-semibold">TikTok</span>
+                        </button>
+
+                        <!-- Threads Button -->
+                        <button type="button" onclick="selectPlatform('threads')" data-platform="threads" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
+                            <i data-lucide="at-sign" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-white transition-colors"></i>
+                            <span class="text-xs font-semibold">Threads</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Select Service Type -->
+                <div class="glass-card rounded-2xl p-6">
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px]">2</span>
+                        Үйлчилгээний төрөл
+                    </label>
+
+                    <div class="grid grid-cols-3 gap-3" id="service-buttons">
+                        <!-- Followers / Subscribers -->
+                        <button type="button" onclick="selectService('followers')" data-service="followers" class="service-btn p-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-center font-medium text-xs sm:text-sm text-zinc-300 hover:bg-zinc-800 transition">
+                            Дагагч / Sub
+                        </button>
+
+                        <!-- Likes -->
+                        <button type="button" onclick="selectService('likes')" data-service="likes" class="service-btn p-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-center font-medium text-xs sm:text-sm text-zinc-300 hover:bg-zinc-800 transition">
+                            Лайк (Likes)
+                        </button>
+
+                        <!-- Shares -->
+                        <button type="button" onclick="selectService('shares')" data-service="shares" class="service-btn p-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-center font-medium text-xs sm:text-sm text-zinc-300 hover:bg-zinc-800 transition">
+                            Шэйр (Shares)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Input Quantity & URL -->
+                <div class="glass-card rounded-2xl p-6 space-y-5">
+                    <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px]">3</span>
+                        Мэдээлэл оруулна уу
+                    </label>
+
+                    <!-- Dynamic Link Field -->
+                    <div>
+                        <label id="input-label" class="block text-xs font-medium text-zinc-300 mb-2">
+                            Суваг эсвэл Хэрэглэгчийн нэр / Холбоос (URL)
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="target-link" placeholder="Жишээ: @username эсвэл https://..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Quantity Input Slider & Number Input -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-medium text-zinc-300">Тоо хэмжээ:</label>
+                            <span class="text-xs text-indigo-400 font-bold">1 нэгж = 10 ₮</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <input type="number" id="quantity-input" min="100" max="100000" step="50" value="1000" oninput="updateCalculator(this.value)" class="w-32 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-center text-base font-bold text-white focus:outline-none">
+                            <input type="range" id="quantity-range" min="100" max="50000" step="100" value="1000" oninput="updateCalculator(this.value)" class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                        </div>
+
+                        <!-- Quick Presets -->
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <button onclick="setQuantity(500)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+500</button>
+                            <button onclick="setQuantity(1000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+1,000</button>
+                            <button onclick="setQuantity(5000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+5,000</button>
+                            <button onclick="setQuantity(10000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+10,000</button>
+                        </div>
+                    </div>
+
+                    <!-- Contact Phone/Email -->
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-2">
+                            Утасны дугаар эсвэл И-мэйл (Холбоо барих)
+                        </label>
+                        <input type="text" id="contact-info" placeholder="9911.... / example@mail.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none transition">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Real-time Price Calculation Summary Card (5 Cols) -->
+            <div class="lg:col-span-5">
+                <div class="glass-card rounded-2xl p-6 sticky top-28 space-y-6 border-indigo-500/20 shadow-2xl">
+                    <div class="flex items-center justify-between pb-4 border-b border-zinc-800">
+                        <h3 class="font-extrabold text-lg text-white uppercase tracking-tight">Захиалгын хураангуй</h3>
+                        <span id="summary-platform-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase">Facebook</span>
+                    </div>
+
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between text-zinc-400">
+                            <span>Сонгосон үйлчилгээ:</span>
+                            <span id="summary-service-text" class="text-white font-semibold">Дагагч / Sub</span>
+                        </div>
+                        <div class="flex justify-between text-zinc-400">
+                            <span>Тоо хэмжээ:</span>
+                            <span id="summary-quantity-text" class="text-white font-semibold">1,000 ширхэг</span>
+                        </div>
+                        <div class="flex justify-between text-zinc-400">
+                            <span>Нэгжийн үнэ:</span>
+                            <span class="text-white font-semibold">10 ₮</span>
+                        </div>
+                        <div class="flex justify-between text-zinc-400">
+                            <span>Гүйцэтгэх хугацаа:</span>
+                            <span class="text-emerald-400 font-semibold">10 - 30 минут</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-zinc-800">
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-sm font-bold text-zinc-300 uppercase">Нийт төлөх дүн:</span>
+                            <div class="text-right">
+                                <span id="summary-total-price" class="text-3xl font-black text-white">10,000 ₮</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buy / Order Trigger Button -->
+                    <button onclick="submitOrder()" class="w-full py-4 rounded-xl font-extrabold text-base bg-white text-black hover:bg-zinc-200 active:scale-[0.99] transition shadow-xl flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span>Захиалах / Төлбөр төлөх</span>
+                    </button>
+
+                    <!-- Security Note -->
+                    <div class="flex items-center gap-2 justify-center text-[11px] text-zinc-500 pt-1">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i>
+                        <span>Нууц үг шаардахгүй • 100% Баталгаатай</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Benefits / Why Choose Us Section -->
+    <section class="py-16 bg-zinc-950/60 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">Яагаад манайхыг сонгох вэ?</h2>
+                <p class="text-zinc-400 text-sm mt-2">Монголдоо хамгийн уян хатан, шинэлэг сошиал идэвхжүүлэлт</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Түргэн Шуурхай</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Төлбөр баталгаажмагц автоматаар захиалга эхэлж 10-30 минутын дотор гүйцэтгэл явагдана.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
+                        <i data-lucide="dollar-sign" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Хамгийн Хямд (10 ₮)</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        За зах зээлийн хамгийн бага үнийн тариф болох 1 follower/like ердөө 10 төгрөг.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
+                        <i data-lucide="lock" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">100% Аюулгүй</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Танаас хэзээ ч сошиал хаягийн нууц үг шаардахгүй. Зөвхөн олон нийтэд нээлттэй линк байхад хангалттай.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">Түгээмэл асуулт, хариулт</h2>
+        </div>
+
+        <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="glass-card rounded-2xl p-5 cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-sm sm:text-base">Захиалга хэр хурдан орох вэ?</h4>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform"></i>
+                </div>
+                <p class="faq-content text-zinc-400 text-sm mt-3 hidden">
+                    Төлбөр төлөгдөж баталгаажсаны дараа таны захиалга системд автоматаар илгээгдэж 5-30 минутын дотор эхэлнэ.
+                </p>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="glass-card rounded-2xl p-5 cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-sm sm:text-base">Миний хаяг хаагдах эсвэл блоклуулах эрсдэлтэй юу?</h4>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform"></i>
+                </div>
+                <p class="faq-content text-zinc-400 text-sm mt-3 hidden">
+                    Байхгүй. Манайх платформуудын аюулгүй байдлын лимитэд тохируулан аажмаар нэмдэг тул таны хаяг 100% аюулгүй.
+                </p>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="glass-card rounded-2xl p-5 cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-sm sm:text-base">Гүйлгээний утгаа буруу бичвэл яах вэ?</h4>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform"></i>
+                </div>
+                <p class="faq-content text-zinc-400 text-sm mt-3 hidden">
+                    Та гүйлгээний утга дээр системийн үүсгэсэн 5 оронтой тоон кодыг яг таг бичих шаардлагатай. Хэрэв буруу бичсэн бол манай хэрэглэгчийн тусламжийн хэсэгт баримтаа ирүүлж баталгаажуулна.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Modal (Khanbank Popup) -->
+    <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card w-full max-w-lg rounded-3xl p-6 sm:p-8 relative border-zinc-700/60 shadow-2xl transform scale-95 transition-transform duration-300" id="payment-modal-content">
+            
+            <!-- Close Icon -->
+            <button onclick="closePaymentModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white p-2 rounded-full hover:bg-zinc-800 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="text-center mb-6">
+                <div class="inline-flex p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+                    <i data-lucide="credit-card" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">Төлбөр Төлөх</h3>
+                <p class="text-xs text-zinc-400 mt-1">Доорх Хаан Банкны данс руу төлбөрөө шилжүүлнэ үү</p>
+            </div>
+
+            <!-- Bank Details Box (Khanbank Visual Styling) -->
+            <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-emerald-500/30 rounded-2xl p-5 mb-6 space-y-4">
+                
+                <!-- Bank Title -->
+                <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+                    <span class="text-xs font-semibold text-zinc-400 uppercase">Банкны нэр:</span>
+                    <span class="text-sm font-black text-emerald-400 flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                        Хаан Банк (Khan Bank)
+                    </span>
+                </div>
+
+                <!-- Account Number -->
+                <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+                    <span class="text-xs font-semibold text-zinc-400 uppercase">Дансны дугаар:</span>
+                    <div class="flex items-center gap-2">
+                        <span id="bank-account" class="text-base sm:text-lg font-black text-white tracking-wider">070005005114553315</span>
+                        <button onclick="copyToClipboard('070005005114553315', 'Дансны дугаар')" class="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition" title="Хуулах">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Account Owner Name -->
+                <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+                    <span class="text-xs font-semibold text-zinc-400 uppercase">Дансны нэр:</span>
+                    <span class="text-sm font-black text-white tracking-wide">ГАЛИНДЭВ (GALINDEV)</span>
+                </div>
+
+                <!-- Transaction Code (Guilgenii Utga) -->
+                <div class="flex items-center justify-between bg-indigo-500/10 border border-indigo-500/30 p-3 rounded-xl">
+                    <div>
+                        <span class="block text-[10px] font-bold text-indigo-300 uppercase tracking-wider">Гүйлгээний утга (Заавал бичнэ):</span>
+                        <span id="transaction-code" class="text-xl font-black text-indigo-400 tracking-widest">-----</span>
+                    </div>
+                    <button onclick="copyCode()" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span>Код хуулах</span>
+                    </button>
+                </div>
+
+                <!-- Final Amount -->
+                <div class="flex items-center justify-between pt-1">
+                    <span class="text-xs font-semibold text-zinc-400 uppercase">Төлөх дүнг заавал:</span>
+                    <span id="modal-total-price" class="text-2xl font-black text-white">0 ₮</span>
+                </div>
+            </div>
+
+            <!-- Steps Instructions -->
+            <div class="space-y-2 mb-6">
+                <h4 class="text-xs font-bold text-zinc-300 uppercase">Төлбөр төлөх заавар:</h4>
+                <ol class="text-xs text-zinc-400 space-y-1.5 list-decimal pl-4">
+                    <li>Өөрийн банкийн аппликейшн руу нэвтрэн орно.</li>
+                    <li>Дээрх <strong>Хаан Банкны</strong> данс руу заасан дүнг шилжүүлнэ.</li>
+                    <li>Гүйлгээний утга дээр <strong><span id="instruction-code">-----</span></strong> кодыг заавал бичнэ.</li>
+                </ol>
+            </div>
+
+            <!-- Payment Confirmation Action Buttons -->
+            <div class="space-y-3">
+                <button onclick="confirmPaymentSimulated()" class="w-full py-3.5 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-400 text-black transition flex items-center justify-center gap-2">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    <span>Төлбөр төлсөн, баталгаажуулах</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Tracking Search Modal -->
+    <div id="track-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card w-full max-w-md rounded-3xl p-6 sm:p-8 relative border-zinc-700/60 shadow-2xl">
+            <button onclick="closeTrackModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white p-2 rounded-full hover:bg-zinc-800 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <i data-lucide="search" class="w-10 h-10 text-indigo-400 mx-auto mb-2"></i>
+                <h3 class="text-xl font-black text-white uppercase">Захиалга шалгах</h3>
+                <p class="text-xs text-zinc-400 mt-1">Гүйлгээний 5 оронтой кодоо оруулна уу</p>
+            </div>
+
+            <div class="space-y-4">
+                <input type="text" id="search-code-input" maxlength="5" placeholder="Жишээ: 84921" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-center text-lg font-bold tracking-widest text-white focus:outline-none">
+                <button onclick="checkOrderStatus()" class="w-full py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+                    Шалгах
+                </button>
+                <div id="track-result" class="hidden text-center p-4 rounded-xl bg-zinc-900 border border-zinc-800"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Message Container -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="glass-card border-indigo-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+            <i data-lucide="info" id="toast-icon" class="w-5 h-5 text-indigo-400"></i>
+            <span id="toast-msg" class="text-xs font-bold">Мэдээлэл</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 py-10 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-lg gradient-accent flex items-center justify-center font-black text-xs text-white">S</div>
+                <span class="font-bold text-sm tracking-tight text-white">SOCIOBOOST MN</span>
+            </div>
+            <p class="text-xs text-zinc-500">© 2026 SocioBoost Mongolia. Бүх права хуулиар хамгаалагдсан.</p>
+            <div class="flex items-center gap-4 text-xs text-zinc-400">
+                <a href="#" class="hover:text-white transition">Үйлчилгээний нөхцөл</a>
+                <span>•</span>
+                <a href="#" class="hover:text-white transition">Нууцлалын бодлого</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global Application State
+        let selectedPlatform = 'facebook';
+        let selectedService = 'followers';
+        let currentQuantity = 1000;
+        const UNIT_PRICE = 10; // 1 follower/like/share = 10 MNT
+        let currentOrderCode = '';
+
+        // Platform metadata for custom icons, colors and input placeholders
+        const platformsData = {
+            facebook: {
+                name: 'Facebook',
+                badgeClass: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+                placeholder: 'Жишээ: https://facebook.com/username эсвэл Пост линк',
+                followerLabel: 'Facebook Хуудасны холбоос эсвэл Username:',
+                postLabel: 'Facebook Постын холбоос (Link):'
+            },
+            instagram: {
+                name: 'Instagram',
+                badgeClass: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
+                placeholder: 'Жишээ: @username эсвэл Instagram постын линк',
+                followerLabel: 'Instagram Username (Жишээ: @myaccount):',
+                postLabel: 'Instagram Пост эсвэл Reels холбоос:'
+            },
+            youtube: {
+                name: 'YouTube',
+                badgeClass: 'bg-red-500/10 text-red-400 border-red-500/20',
+                placeholder: 'Жишээ: https://youtube.com/@channel эсвэл Бичлэгийн линк',
+                followerLabel: 'YouTube Сувгийн холбоос (Channel Link):',
+                postLabel: 'YouTube Бичлэгийн холбоос (Video Link):'
+            },
+            tiktok: {
+                name: 'TikTok',
+                badgeClass: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+                placeholder: 'Жишээ: @tiktok_username эсвэл Бичлэгийн линк',
+                followerLabel: 'TikTok Username (Жишээ: @username):',
+                postLabel: 'TikTok Video холбоос:'
+            },
+            threads: {
+                name: 'Threads',
+                badgeClass: 'bg-zinc-500/10 text-zinc-300 border-zinc-500/20',
+                placeholder: 'Жишээ: @threads_user эсвэл Постын линк',
+                followerLabel: 'Threads Username (Жишээ: @username):',
+                postLabel: 'Threads Пост холбоос:'
+            }
+        };
+
+        const servicesData = {
+            followers: 'Дагагч / Sub',
+            likes: 'Лайк (Likes)',
+            shares: 'Шэйр (Shares)'
+        };
+
+        // Initialize icons and initial UI state on load
+        window.onload = function() {
+            lucide.createIcons();
+            selectPlatform('facebook');
+            selectService('followers');
+            updateCalculator(1000);
+        };
+
+        // Switch active social media platform
+        function selectPlatform(platform) {
+            selectedPlatform = platform;
+
+            // UI Button Highlighting
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                if (btn.getAttribute('data-platform') === platform) {
+                    btn.classList.add('border-indigo-500', 'bg-indigo-500/10', 'text-white');
+                    btn.classList.remove('border-zinc-800', 'bg-zinc-900/50', 'text-zinc-300');
+                } else {
+                    btn.classList.remove('border-indigo-500', 'bg-indigo-500/10', 'text-white');
+                    btn.classList.add('border-zinc-800', 'bg-zinc-900/50', 'text-zinc-300');
+                }
+            });
+
+            updateLabelsAndSummary();
+        }
+
+        // Switch active service type
+        function selectService(service) {
+            selectedService = service;
+
+            document.querySelectorAll('.service-btn').forEach(btn => {
+                if (btn.getAttribute('data-service') === service) {
+                    btn.classList.add('border-indigo-500', 'bg-indigo-500/10', 'text-white');
+                    btn.classList.remove('border-zinc-800', 'bg-zinc-900/50', 'text-zinc-300');
+                } else {
+                    btn.classList.remove('border-indigo-500', 'bg-indigo-500/10', 'text-white');
+                    btn.classList.add('border-zinc-800', 'bg-zinc-900/50', 'text-zinc-300');
+                }
+            });
+
+            updateLabelsAndSummary();
+        }
+
+        // Update real-time input dynamic labels
+        function updateLabelsAndSummary() {
+            const platformInfo = platformsData[selectedPlatform];
+            const inputLabel = document.getElementById('input-label');
+            const inputField = document.getElementById('target-link');
+
+            if (selectedService === 'followers') {
+                inputLabel.innerText = platformInfo.followerLabel;
+            } else {
+                inputLabel.innerText = platformInfo.postLabel;
+            }
+            inputField.placeholder = platformInfo.placeholder;
+
+            // Update Summary Card
+            const summaryBadge = document.getElementById('summary-platform-badge');
+            summaryBadge.innerText = platformInfo.name;
+            summaryBadge.className = `px-2.5 py-1 rounded-full text-[11px] font-bold border ${platformInfo.badgeClass} uppercase`;
+
+            document.getElementById('summary-service-text').innerText = servicesData[selectedService];
+        }
+
+        // Synchronize quantity input and range slider with real-time price calculation
+        function updateCalculator(val) {
+            let num = parseInt(val) || 0;
+            if (num < 1) num = 1;
+            currentQuantity = num;
+
+            document.getElementById('quantity-input').value = currentQuantity;
+            document.getElementById('quantity-range').value = Math.min(currentQuantity, 50000);
+
+            // Calculate total price: quantity * 10 MNT
+            const totalPrice = currentQuantity * UNIT_PRICE;
+            const formattedTotal = totalPrice.toLocaleString() + ' ₮';
+
+            document.getElementById('summary-quantity-text').innerText = currentQuantity.toLocaleString() + ' ширхэг';
+            document.getElementById('summary-total-price').innerText = formattedTotal;
+        }
+
+        function setQuantity(amount) {
+            updateCalculator(amount);
+        }
+
+        // Generate 5 random digits for transaction code (Guilgenii Utga)
+        function generate5DigitCode() {
+            return Math.floor(10000 + Math.random() * 90000).toString();
+        }
+
+        // Order submission and modal trigger
+        function submitOrder() {
+            const linkInput = document.getElementById('target-link').value.trim();
+            const contactInput = document.getElementById('contact-info').value.trim();
+
+            if (!linkInput) {
+                showToast('Суваг эсвэл холбоосоо оруулна уу!');
+                document.getElementById('target-link').focus();
+                return;
+            }
+
+            if (!contactInput) {
+                showToast('Холбоо барих утасны дугаараа оруулна уу!');
+                document.getElementById('contact-info').focus();
+                return;
+            }
+
+            // Generate unique transaction code
+            currentOrderCode = generate5DigitCode();
+
+            const totalPrice = (currentQuantity * UNIT_PRICE).toLocaleString() + ' ₮';
+
+            // Populate Modal Fields
+            document.getElementById('transaction-code').innerText = currentOrderCode;
+            document.getElementById('instruction-code').innerText = currentOrderCode;
+            document.getElementById('modal-total-price').innerText = totalPrice;
+
+            // Save order into localStorage mock database
+            const orderData = {
+                code: currentOrderCode,
+                platform: selectedPlatform,
+                service: selectedService,
+                quantity: currentQuantity,
+                total: totalPrice,
+                target: linkInput,
+                contact: contactInput,
+                status: 'Хүлээгдэж байна'
+            };
+            localStorage.setItem('order_' + currentOrderCode, JSON.stringify(orderData));
+
+            openPaymentModal();
+        }
+
+        // Open Payment Modal with smooth transition
+        function openPaymentModal() {
+            const modal = document.getElementById('payment-modal');
+            const content = document.getElementById('payment-modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Close Payment Modal
+        function closePaymentModal() {
+            const modal = document.getElementById('payment-modal');
+            const content = document.getElementById('payment-modal-content');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Copy transaction code
+        function copyCode() {
+            copyToClipboard(currentOrderCode, 'Гүйлгээний утга');
+        }
+
+        // Fallback Clipboard copy function
+        function copyToClipboard(text, name) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`${name} хуулагдлаа: ${text}`);
+            } catch (err) {
+                showToast('Хуулж чадсангүй');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Toast feedback notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // FAQ accordion trigger
+        function toggleFaq(element) {
+            const content = element.querySelector('.faq-content');
+            const icon = element.querySelector('i');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Simulated payment confirmation logic
+        function confirmPaymentSimulated() {
+            closePaymentModal();
+            showToast(`Захиалга #${currentOrderCode} системд бүртгэгдлээ! Төлбөр шалгаж байна.`);
+        }
+
+        // Order tracking modal functions
+        function openTrackModal() {
+            const modal = document.getElementById('track-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeTrackModal() {
+            const modal = document.getElementById('track-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function checkOrderStatus() {
+            const code = document.getElementById('search-code-input').value.trim();
+            const resultBox = document.getElementById('track-result');
+
+            if (!code || code.length !== 5) {
+                showToast('5 оронтой кодоо оруулна уу');
+                return;
+            }
+
+            const stored = localStorage.getItem('order_' + code);
+            resultBox.classList.remove('hidden');
+
+            if (stored) {
+                const data = JSON.parse(stored);
+                resultBox.innerHTML = `
+                    <div class="text-xs space-y-1">
+                        <div class="text-emerald-400 font-bold">Захиалга олдоо!</div>
+                        <div class="text-zinc-300">Платформ: <span class="uppercase font-semibold">${data.platform}</span></div>
+                        <div class="text-zinc-300">Төлөв: <span class="text-amber-400 font-bold">${data.status}</span></div>
+                        <div class="text-zinc-400">Дүн: ${data.total}</div>
+                    </div>
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    <div class="text-xs text-rose-400 font-bold">
+                        Код олдсонгүй! Та кодоо шалгаад дахин оролдоно уу.
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
 </html>
