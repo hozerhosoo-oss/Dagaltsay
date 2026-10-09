@@ -112,6 +112,10 @@
                     <i data-lucide="search" class="w-4 h-4 text-indigo-400"></i>
                     <span>Захиалга шалгах</span>
                 </button>
+                <a href="https://m.me/61560218534654" target="_blank" class="hidden sm:flex px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition items-center gap-2 shadow-lg">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <span>Холбоо барих</span>
+                </a>
                 <a href="#order-section" class="hidden sm:flex px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-black hover:bg-zinc-200 transition items-center gap-2 shadow-lg">
                     <span>Захиалах</span>
                     <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
@@ -175,7 +179,7 @@
         <!-- Order Workflow Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <!-- Left Side: Selection Tabs & Inputs (8 Cols) -->
+            <!-- Left Side: Selection Tabs & Inputs (7 Cols) -->
             <div class="lg:col-span-7 space-y-6">
                 
                 <!-- Step 1: Select Platform -->
@@ -188,31 +192,53 @@
                     <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="platform-buttons">
                         <!-- Facebook Button -->
                         <button type="button" onclick="selectPlatform('facebook')" data-platform="facebook" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
-                            <i data-lucide="facebook" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-blue-500 transition-colors"></i>
+                            <!-- Official Facebook SVG Logo -->
+                            <svg class="w-6 h-6 mb-2 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="#1877F2">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
                             <span class="text-xs font-semibold">Facebook</span>
                         </button>
 
                         <!-- Instagram Button -->
                         <button type="button" onclick="selectPlatform('instagram')" data-platform="instagram" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
-                            <i data-lucide="instagram" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-pink-500 transition-colors"></i>
+                            <!-- Official Instagram SVG Logo -->
+                            <svg class="w-6 h-6 mb-2 transition-transform group-hover:scale-110" viewBox="0 0 24 24">
+                                <radialGradient id="igGrad" cx="30%" cy="107%" r="130%" fx="30%" fy="107%">
+                                    <stop offset="0%" stop-color="#fdf497" />
+                                    <stop offset="5%" stop-color="#fdf497" />
+                                    <stop offset="45%" stop-color="#fd5949" />
+                                    <stop offset="60%" stop-color="#d6249f" />
+                                    <stop offset="90%" stop-color="#285AEB" />
+                                </radialGradient>
+                                <path fill="url(#igGrad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
                             <span class="text-xs font-semibold">Instagram</span>
                         </button>
 
                         <!-- YouTube Button -->
                         <button type="button" onclick="selectPlatform('youtube')" data-platform="youtube" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
-                            <i data-lucide="youtube" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-red-500 transition-colors"></i>
+                            <!-- Official YouTube SVG Logo -->
+                            <svg class="w-6 h-6 mb-2 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="#FF0000">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
                             <span class="text-xs font-semibold">YouTube</span>
                         </button>
 
                         <!-- TikTok Button -->
                         <button type="button" onclick="selectPlatform('tiktok')" data-platform="tiktok" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
-                            <i data-lucide="video" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-cyan-400 transition-colors"></i>
+                            <!-- Official TikTok SVG Logo -->
+                            <svg class="w-6 h-6 mb-2 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="#FFFFFF">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.24-2.39.58-4.83 2.18-6.6 1.45-1.61 3.57-2.61 5.75-2.67.12 0 .24 0 .36.01v4.03c-.11-.01-.22-.02-.33-.02-1.28.02-2.52.57-3.37 1.51-.97 1.05-1.33 2.57-1.02 3.97.28 1.34 1.25 2.45 2.53 2.87 1.26.43 2.68.23 3.75-.52.92-.63 1.51-1.65 1.63-2.75.05-1.42.02-2.85.02-4.28V.02z"/>
+                            </svg>
                             <span class="text-xs font-semibold">TikTok</span>
                         </button>
 
                         <!-- Threads Button -->
                         <button type="button" onclick="selectPlatform('threads')" data-platform="threads" class="platform-btn flex flex-col items-center justify-center p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 text-zinc-300 transition-all group">
-                            <i data-lucide="at-sign" class="w-6 h-6 mb-2 text-zinc-400 group-hover:text-white transition-colors"></i>
+                            <!-- Official Threads SVG Logo -->
+                            <svg class="w-6 h-6 mb-2 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="#FFFFFF">
+                                <path d="M12.186 24c-3.172 0-5.833-.996-7.697-2.882C2.624 19.23 1.7 16.29 1.7 12.378c0-3.921.93-6.852 2.798-8.718C6.36 1.774 9.02 0.78 12.186 0.78c3.212 0 5.882.99 7.722 2.862 1.83 1.862 2.748 4.793 2.748 8.718 0 1.27-.1 2.373-.3 3.284-.191.871-.52 1.662-.98 2.352-.51.76-1.19 1.371-2.02 1.811-.83.44-1.81.66-2.92.66-1.17 0-2.15-.27-2.93-.81-.78-.54-1.31-1.29-1.58-2.25h-.11c-.37.91-.98 1.62-1.83 2.13-.85.51-1.86.77-3.03.77-1.39 0-2.52-.41-3.39-1.23-.87-.82-1.31-1.92-1.31-3.3 0-1.45.49-2.61 1.47-3.48.98-.87 2.34-1.35 4.08-1.44l2.92-.15v-.43c0-1.12-.29-1.96-.87-2.52-.58-.56-1.43-.84-2.55-.84-1.02 0-1.83.22-2.43.66-.6.44-.98 1.05-1.14 1.83H5.2c.21-1.68.93-3 2.16-3.96 1.23-.96 2.82-1.44 4.77-1.44 2.16 0 3.82.52 4.98 1.56 1.16 1.04 1.74 2.57 1.74 4.59v6.54c0 .87.19 1.51.57 1.92.38.41.9.62 1.56.62.62 0 1.15-.15 1.59-.45.44-.3.77-.73.99-1.29.22-.56.33-1.33.33-2.31 0-3.37-.76-5.83-2.28-7.38C18.09 3.89 15.65 3.1 12.186 3.1c-2.68 0-4.88.8-6.6 2.4-1.72 1.6-2.58 4.1-2.58 7.5 0 3.38.86 5.88 2.58 7.48 1.72 1.6 3.92 2.4 6.6 2.4 2.1 0 3.88-.47 5.34-1.41 1.46-.94 2.35-2.26 2.67-3.96h2.72c-.37 2.41-1.57 4.31-3.6 5.7C17.3 23.3 14.97 24 12.186 24zm-1.08-7.92c.98 0 1.77-.28 2.37-.84.6-.56.9-1.33.9-2.31v-.65l-2.53.13c-1.1.06-1.93.33-2.49.81-.56.48-.84 1.12-.84 1.92 0 .61.2 1.08.6 1.41.4.33.96.53 1.99.53z"/>
+                            </svg>
                             <span class="text-xs font-semibold">Threads</span>
                         </button>
                     </div>
@@ -263,21 +289,23 @@
                     <!-- Quantity Input Slider & Number Input -->
                     <div>
                         <div class="flex justify-between items-center mb-2">
-                            <label class="text-xs font-medium text-zinc-300">Тоо хэмжээ:</label>
+                            <label class="text-xs font-medium text-zinc-300">Тоо хэмжээ (Доод тал нь 1,000, Дээд тал нь 100,000):</label>
                             <span class="text-xs text-indigo-400 font-bold">1 нэгж = 10 ₮</span>
                         </div>
                         
                         <div class="flex items-center gap-4">
-                            <input type="number" id="quantity-input" min="100" max="100000" step="50" value="1000" oninput="updateCalculator(this.value)" class="w-32 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-center text-base font-bold text-white focus:outline-none">
-                            <input type="range" id="quantity-range" min="100" max="50000" step="100" value="1000" oninput="updateCalculator(this.value)" class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                            <input type="number" id="quantity-input" min="1000" max="100000" step="100" value="1000" oninput="updateCalculator(this.value)" onblur="validateQuantityBounds(this)" class="w-36 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-center text-base font-bold text-white focus:outline-none">
+                            <input type="range" id="quantity-range" min="1000" max="100000" step="500" value="1000" oninput="updateCalculator(this.value)" class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
                         </div>
 
                         <!-- Quick Presets -->
                         <div class="flex flex-wrap gap-2 mt-3">
-                            <button onclick="setQuantity(500)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+500</button>
-                            <button onclick="setQuantity(1000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+1,000</button>
-                            <button onclick="setQuantity(5000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+5,000</button>
-                            <button onclick="setQuantity(10000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">+10,000</button>
+                            <button onclick="setQuantity(1000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">1,000</button>
+                            <button onclick="setQuantity(5000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">5,000</button>
+                            <button onclick="setQuantity(10000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">10,000</button>
+                            <button onclick="setQuantity(25000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">25,000</button>
+                            <button onclick="setQuantity(50000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">50,000</button>
+                            <button onclick="setQuantity(100000)" class="px-2.5 py-1 text-xs rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition">100,000</button>
                         </div>
                     </div>
 
@@ -344,6 +372,40 @@
 
         </div>
     </main>
+
+    <!-- Contact Us Section (Holboo Barih) -->
+    <section id="contact-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-t border-zinc-900">
+        <div class="glass-card rounded-3xl p-8 sm:p-12 border-blue-500/20 relative overflow-hidden text-center bg-gradient-to-b from-blue-950/20 to-zinc-900/50">
+            <!-- Background Glow -->
+            <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-blue-600/10 blur-[80px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-2xl mx-auto relative z-10 space-y-6">
+                <!-- Icon Badge -->
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 mb-2">
+                    <i data-lucide="message-square" class="w-8 h-8"></i>
+                </div>
+
+                <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">Холбоо Барих</h2>
+                <p class="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                    Та захиалгатай холбоотой асуулт асуух эсвэл тусламж авах бол манай Messenger чатаар шууд холбогдоно уу. Бид 24/7 танд туслахад бэлэн байна.
+                </p>
+
+                <div class="pt-2">
+                    <a href="https://m.me/61560218534654" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-black text-base bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-xl shadow-blue-600/20 hover:scale-105 active:scale-95">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.082.3 2.23.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.56 6.964z"/>
+                        </svg>
+                        <span>Messenger-ээр чатлах</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center justify-center gap-2 text-xs text-zinc-400 pt-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Хариу өгөх дундаж хугацаа: 1-5 минут</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Benefits / Why Choose Us Section -->
     <section class="py-16 bg-zinc-950/60 border-t border-zinc-900">
@@ -556,8 +618,10 @@
                 <div class="w-6 h-6 rounded-lg gradient-accent flex items-center justify-center font-black text-xs text-white">S</div>
                 <span class="font-bold text-sm tracking-tight text-white">SOCIOBOOST MN</span>
             </div>
-            <p class="text-xs text-zinc-500">© 2026 SocioBoost Mongolia. Бүх права хуулиар хамгаалагдсан.</p>
+            <p class="text-xs text-zinc-500">© 2026 SocioBoost Mongolia. Бүх эрх хуулиар хамгаалагдсан.</p>
             <div class="flex items-center gap-4 text-xs text-zinc-400">
+                <a href="https://m.me/61560218534654" target="_blank" class="hover:text-white transition">Холбоо барих</a>
+                <span>•</span>
                 <a href="#" class="hover:text-white transition">Үйлчилгээний нөхцөл</a>
                 <span>•</span>
                 <a href="#" class="hover:text-white transition">Нууцлалын бодлого</a>
@@ -571,6 +635,8 @@
         let selectedPlatform = 'facebook';
         let selectedService = 'followers';
         let currentQuantity = 1000;
+        const MIN_QUANTITY = 1000;
+        const MAX_QUANTITY = 100000;
         const UNIT_PRICE = 10; // 1 follower/like/share = 10 MNT
         let currentOrderCode = '';
 
@@ -686,11 +752,10 @@
         // Synchronize quantity input and range slider with real-time price calculation
         function updateCalculator(val) {
             let num = parseInt(val) || 0;
-            if (num < 1) num = 1;
             currentQuantity = num;
 
             document.getElementById('quantity-input').value = currentQuantity;
-            document.getElementById('quantity-range').value = Math.min(currentQuantity, 50000);
+            document.getElementById('quantity-range').value = Math.min(Math.max(currentQuantity, MIN_QUANTITY), MAX_QUANTITY);
 
             // Calculate total price: quantity * 10 MNT
             const totalPrice = currentQuantity * UNIT_PRICE;
@@ -698,6 +763,18 @@
 
             document.getElementById('summary-quantity-text').innerText = currentQuantity.toLocaleString() + ' ширхэг';
             document.getElementById('summary-total-price').innerText = formattedTotal;
+        }
+
+        function validateQuantityBounds(input) {
+            let num = parseInt(input.value) || 0;
+            if (num < MIN_QUANTITY) {
+                num = MIN_QUANTITY;
+                showToast(`Доод хэмжээ: ${MIN_QUANTITY.toLocaleString()}`);
+            } else if (num > MAX_QUANTITY) {
+                num = MAX_QUANTITY;
+                showToast(`Дээд хэмжээ: ${MAX_QUANTITY.toLocaleString()}`);
+            }
+            updateCalculator(num);
         }
 
         function setQuantity(amount) {
@@ -711,6 +788,18 @@
 
         // Order submission and modal trigger
         function submitOrder() {
+            if (currentQuantity < MIN_QUANTITY) {
+                showToast(`Захиалгын доод хэмжээ ${MIN_QUANTITY.toLocaleString()} байна.`);
+                updateCalculator(MIN_QUANTITY);
+                return;
+            }
+
+            if (currentQuantity > MAX_QUANTITY) {
+                showToast(`Захиалгын дээд хэмжээ ${MAX_QUANTITY.toLocaleString()} байна.`);
+                updateCalculator(MAX_QUANTITY);
+                return;
+            }
+
             const linkInput = document.getElementById('target-link').value.trim();
             const contactInput = document.getElementById('contact-info').value.trim();
 
@@ -859,7 +948,7 @@
                 const data = JSON.parse(stored);
                 resultBox.innerHTML = `
                     <div class="text-xs space-y-1">
-                        <div class="text-emerald-400 font-bold">Захиалга олдоо!</div>
+                        <div class="text-emerald-400 font-bold">Захиалга олдлоо!</div>
                         <div class="text-zinc-300">Платформ: <span class="uppercase font-semibold">${data.platform}</span></div>
                         <div class="text-zinc-300">Төлөв: <span class="text-amber-400 font-bold">${data.status}</span></div>
                         <div class="text-zinc-400">Дүн: ${data.total}</div>
