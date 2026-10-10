@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="mn" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login & Dashboard - SMM Mongolia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        khan: '#006633'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+        }
+        .glass-card {
+            background: rgba(18, 18, 22, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        input:focus {
+            outline: none;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- LOGIN CONTAINER -->
+    <div id="login-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950">
+        <div class="absolute w-[400px] h-[400px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="glass-card w-full max-w-md rounded-3xl p-8 relative border-zinc-800 shadow-2xl space-y-6">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-pink-600 flex items-center justify-center font-black text-2xl text-white mx-auto shadow-lg shadow-indigo-500/20">
+                    A
+                </div>
+                <h1 class="text-2xl font-black text-white uppercase tracking-tight">Админ Нэвтрэх</h1>
+                <p class="text-xs text-zinc-400">Самбарыг удирдахын тулд нэвтэрнэ үү</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-zinc-300 mb-1.5">Админ нэр (Username):</label>
+                    <input type="text" id="login-username" required placeholder="admin" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-zinc-300 mb-1.5">Нууц үг (Password):</label>
+                    <input type="password" id="login-password" required placeholder="••••" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 transition">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-lg shadow-indigo-600/20">
+                    Нэвтрэх
+                </button>
+            </form>
+
+            <div class="text-center">
+                <a href="index.html" class="text-xs text-zinc-500 hover:text-zinc-300 transition">← Вэб сайт руу буцах</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD CONTAINER (Hidden initially) -->
+    <div id="dashboard-container" class="hidden min-h-screen flex flex-col justify-between">
+        
+        <!-- Top Navbar -->
+        <header class="sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-pink-600 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-indigo-500/20">
+                        A
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-black text-xl tracking-tight text-white uppercase flex items-center gap-1.5">
+                            ADMIN <span class="text-indigo-400">DASHBOARD</span>
+                        </span>
+                        <span class="text-[10px] tracking-widest text-zinc-400 uppercase font-semibold">SMM Mongolia Control Center</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition flex items-center gap-2">
+                        <i data-lucide="external-link" class="w-4 h-4 text-indigo-400"></i>
+                        <span>Вэб сайт</span>
+                    </a>
+                    <button onclick="clearAllData()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-rose-500/10 border border-rose-500/20 text-rose-400 hover:bg-rose-500/20 transition flex items-center gap-2">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        <span>Өгөгдөл цэвэрлэх</span>
+                    </button>
+                    <button onclick="handleLogout()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition flex items-center gap-2">
+                        <i data-lucide="log-out" class="w-4 h-4 text-amber-400"></i>
+                        <span>Гарах</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 space-y-8">
+            
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass-card rounded-2xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Нийт зочид (Visits)</span>
+                        <h3 id="stat-total-visits" class="text-2xl font-black text-white mt-1">0</h3>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                        <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Шинэ захиалга</span>
+                        <h3 id="stat-total-orders" class="text-2xl font-black text-white mt-1">0</h3>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Хүлээгдэж буй</span>
+                        <h3 id="stat-pending-orders" class="text-2xl font-black text-white mt-1">0</h3>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center">
+                        <i data-lucide="wallet" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Нийт орлого</span>
+                        <h3 id="stat-total-revenue" class="text-xl font-black text-white mt-1">0 ₮</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Management Section -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
+                    <div>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Шинэ захиалуудын жагсаалт</h2>
+                        <p class="text-xs text-zinc-400 mt-1">Хэрэглэгчдийн өгсөн захиалга болон төлөв байдал</p>
+                    </div>
+                    <button onclick="loadOrders()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition flex items-center gap-2">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>Шинэчлэх</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-zinc-900/50 text-zinc-400 text-xs uppercase border-b border-zinc-800">
+                            <tr>
+                                <th class="p-3.5 rounded-l-xl">Код</th>
+                                <th class="p-3.5">Платформ / Үйлчилгээ</th>
+                                <th class="p-3.5">Холбоос / Хаяг</th>
+                                <th class="p-3.5">Холбоо барих</th>
+                                <th class="p-3.5">Дүн</th>
+                                <th class="p-3.5">Төлөв</th>
+                                <th class="p-3.5 rounded-r-xl text-right">Үйлдэл</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body" class="divide-y divide-zinc-800/60">
+                            <!-- JS inserts rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Visitor Logs Section -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
+                    <div>
+                        <h2 class="text-xl font-black text-white uppercase tracking-tight">Сүүлд зочилсон хүмүүс (Visitor Logs)</h2>
+                        <p class="text-xs text-zinc-400 mt-1">Веб сайцаар зочилсон хэрэглэгчдийн цаг болон төхөөрөмжийн мэдээлэл</p>
+                    </div>
+                    <button onclick="loadVisitors()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition flex items-center gap-2">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>Шинэчлэх</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-zinc-900/50 text-zinc-400 text-xs uppercase border-b border-zinc-800">
+                            <tr>
+                                <th class="p-3.5 rounded-l-xl">№</th>
+                                <th class="p-3.5">Зочилсон цаг</th>
+                                <th class="p-3.5 rounded-r-xl">Төхөөрөмж / Browser</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visitors-table-body" class="divide-y divide-zinc-800/60">
+                            <!-- JS inserts rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-zinc-900 py-8 bg-zinc-950 text-center text-xs text-zinc-500">
+            <p>© 2026 SocioBoost Mongolia Admin Panel.</p>
+        </footer>
+
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="glass-card border-indigo-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-indigo-400"></i>
+            <span id="toast-msg" class="text-xs font-bold">Мэдээлэл</span>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        window.onload = function() {
+            lucide.createIcons();
+            checkAuthSession();
+        };
+
+        function checkAuthSession() {
+            const isLogged = sessionStorage.getItem('admin_logged_in');
+            if (isLogged === 'true') {
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('dashboard-container').classList.remove('hidden');
+                loadDashboardData();
+            } else {
+                document.getElementById('login-container').classList.remove('hidden');
+                document.getElementById('dashboard-container').classList.add('hidden');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-username').value.trim();
+            const pass = document.getElementById('login-password').value.trim();
+
+            if (user === 'admin' && pass === '1109') {
+                sessionStorage.setItem('admin_logged_in', 'true');
+                checkAuthSession();
+                showToast('Амжилттай нэвтэрлээ!');
+            } else {
+                showToast('Админ нэр эсвэл нууц үг буруу байна!');
+            }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('admin_logged_in');
+            document.getElementById('login-username').value = '';
+            document.getElementById('login-password').value = '';
+            checkAuthSession();
+            showToast('Системээс гарлаа.');
+        }
+
+        function loadDashboardData() {
+            loadStats();
+            loadOrders();
+            loadVisitors();
+        }
+
+        function loadStats() {
+            const totalVisits = localStorage.getItem('total_visits') || '0';
+            document.getElementById('stat-total-visits').innerText = parseInt(totalVisits).toLocaleString();
+
+            let orders = getAllOrders();
+            document.getElementById('stat-total-orders').innerText = orders.length;
+
+            let pendingCount = orders.filter(o => o.status === 'Хүлээгдэж байна').length;
+            document.getElementById('stat-pending-orders').innerText = pendingCount;
+
+            let totalRev = orders.reduce((acc, curr) => {
+                let num = parseInt(curr.total.replace(/[^0-9]/g, '')) || 0;
+                return acc + num;
+            }, 0);
+            document.getElementById('stat-total-revenue').innerText = totalRev.toLocaleString() + ' ₮';
+        }
+
+        function getAllOrders() {
+            let orders = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i);
+                if (key && key.startsWith('order_')) {
+                    try {
+                        let data = JSON.parse(localStorage.getItem(key));
+                        orders.push(data);
+                    } catch(e) {}
+                }
+            }
+            return orders;
+        }
+
+        function loadOrders() {
+            let orders = getAllOrders();
+            let tbody = document.getElementById('orders-table-body');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-zinc-500 text-xs">Захиалга байхгүй байна.</td></tr>`;
+                return;
+            }
+
+            orders.forEach((ord) => {
+                let tr = document.createElement('tr');
+                tr.className = 'hover:bg-zinc-900/40 transition';
+                tr.innerHTML = `
+                    <td class="p-3.5 font-bold text-indigo-400">#${ord.code}</td>
+                    <td class="p-3.5">
+                        <span class="block font-semibold text-white uppercase text-xs">${ord.platform}</span>
+                        <span class="text-[11px] text-zinc-400">${ord.service} (${ord.quantity})</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-300 max-w-xs truncate"><a href="${ord.target.startsWith('http') ? ord.target : '#'}" target="_blank" class="hover:underline text-indigo-300">${ord.target}</a></td>
+                    <td class="p-3.5 text-zinc-300">${ord.contact}</td>
+                    <td class="p-3.5 font-bold text-white">${ord.total}</td>
+                    <td class="p-3.5">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${ord.status === 'Хүлээгдэж байна' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}">${ord.status}</span>
+                    </td>
+                    <td class="p-3.5 text-right space-x-2">
+                        <button onclick="toggleOrderStatus('${ord.code}')" class="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs transition">Төлөв солих</button>
+                        <button onclick="deleteOrder('${ord.code}')" class="px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs transition">Устгах</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleOrderStatus(code) {
+            let key = 'order_' + code;
+            let data = JSON.parse(localStorage.getItem(key));
+            if (data) {
+                data.status = data.status === 'Хүлээгдэж байна' ? 'Биелэгдсэн (Дууссан)' : 'Хүлээгдэж байна';
+                localStorage.setItem(key, JSON.stringify(data));
+                loadDashboardData();
+                showToast(`Захиалга #${code} төлөв шинэчлэгдлээ.`);
+            }
+        }
+
+        function deleteOrder(code) {
+            if (confirm(`Захиалга #${code}-ийг устгахдаа итгэлтэй байна уу?`)) {
+                localStorage.removeItem('order_' + code);
+                loadDashboardData();
+                showToast(`Захиалга #${code} устгагдлаа.`);
+            }
+        }
+
+        function loadVisitors() {
+            let visitors = JSON.parse(localStorage.getItem('visit_logs') || '[]');
+            let tbody = document.getElementById('visitors-table-body');
+            tbody.innerHTML = '';
+
+            if (visitors.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-zinc-500 text-xs">Зочилсон бүртгэл байхгүй байна.</td></tr>`;
+                return;
+            }
+
+            visitors.forEach((v, index) => {
+                let tr = document.createElement('tr');
+                tr.className = 'hover:bg-zinc-900/40 transition';
+                tr.innerHTML = `
+                    <td class="p-3.5 text-zinc-500 font-mono text-xs">${index + 1}</td>
+                    <td class="p-3.5 text-zinc-300 font-medium">${v.time}</td>
+                    <td class="p-3.5 text-zinc-400 text-xs">${v.ua}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function clearAllData() {
+            if (confirm('Бүх захиалга болон зочдын бүртгэлийг устгах уу?')) {
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    let key = localStorage.key(i);
+                    if (key && (key.startsWith('order_') || key === 'visit_logs' || key === 'total_visits')) {
+                        localStorage.removeItem(key);
+                    }
+                }
+                loadDashboardData();
+                showToast('Бүх өгөгдөл цэвэрлэгдлээ.');
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+    </script>
+</body>
+</html>
